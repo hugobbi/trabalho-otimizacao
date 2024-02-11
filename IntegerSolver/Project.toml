@@ -1,0 +1,4 @@
+name = "IntegerSolver"
+uuid = "2ba5937f-9635-48ae-bbf8-7c995d89c0ba"
+authors = ["Felipe <felipe.gallois@inf.ufrgs.br>"]
+version = "0.1.0"
