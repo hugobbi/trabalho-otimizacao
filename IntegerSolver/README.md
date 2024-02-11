@@ -1,4 +1,4 @@
-# integer-solver
+# IntegerSolver
 
 Calcula a solução exata de uma instância do problema "atrapalhando fugitivos", informada pelo *stdin*, utilizando o *solver* de programação inteira GLPK. Existe um tempo limite de 30 minutos para finalizar a execução, e se não tiver obtido uma resposta nesse tempo, o programa para independentemente. O formato do comando é o seguinte:
 
