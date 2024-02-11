@@ -1,0 +1,10 @@
+cat af/instances/af1.dat | julia IntegerSolver/src/IntegerSolver.jl output-1.txt 20
+cat af/instances/af2.dat | julia IntegerSolver/src/IntegerSolver.jl output-2.txt 20
+cat af/instances/af3.dat | julia IntegerSolver/src/IntegerSolver.jl output-3.txt 20
+cat af/instances/af4.dat | julia IntegerSolver/src/IntegerSolver.jl output-4.txt 20
+cat af/instances/af5.dat | julia IntegerSolver/src/IntegerSolver.jl output-5.txt 20
+cat af/instances/af6.dat | julia IntegerSolver/src/IntegerSolver.jl output-6.txt 20
+cat af/instances/af7.dat | julia IntegerSolver/src/IntegerSolver.jl output-7.txt 20
+cat af/instances/af8.dat | julia IntegerSolver/src/IntegerSolver.jl output-8.txt 20
+cat af/instances/af9.dat | julia IntegerSolver/src/IntegerSolver.jl output-9.txt 20
+cat af/instances/af10.dat | julia IntegerSolver/src/IntegerSolver.jl output-10.txt 20
