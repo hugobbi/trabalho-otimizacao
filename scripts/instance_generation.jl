@@ -15,23 +15,23 @@ open(ARGS[1], "w") do file
         println(file, "$(group[1]) $(group[2])")
     end
 
-    for x in 1:n
-        for y in 1:n
-             if checkindex(Bool, 1:n, x - 1) && checkindex(Bool, 1:n, y)
+    for x in 0:(n - 1)
+        for y in 0:(n - 1)
+            if checkindex(Bool, 0:(n - 1), x - 1) && checkindex(Bool, 0:(n - 1), y)
                 println(file, "$x-$y $(x - 1)-$y $(rand(t_min:t_max))")
-             end
+            end
 
-             if checkindex(Bool, 1:n, x + 1) && checkindex(Bool, 1:n, y)
+            if checkindex(Bool, 0:(n - 1), x + 1) && checkindex(Bool, 0:(n - 1), y)
                 println(file, "$x-$y $(x + 1)-$y $(rand(t_min:t_max))")
-             end
+            end
 
-             if checkindex(Bool, 1:n, x) && checkindex(Bool, 1:n, y + 1)
+            if checkindex(Bool, 0:(n - 1), x) && checkindex(Bool, 0:(n - 1), y + 1)
                 println(file, "$x-$y $x-$(y + 1) $(rand(t_min:t_max))")
-             end
+            end
              
-             if checkindex(Bool, 1:n, x) && checkindex(Bool, 1:n, y - 1)
+            if checkindex(Bool, 0:(n - 1), x) && checkindex(Bool, 0:(n - 1), y - 1)
                 println(file, "$x-$y $x-$(y - 1) $(rand(t_min:t_max))")
-             end
+            end
         end
     end
 end
