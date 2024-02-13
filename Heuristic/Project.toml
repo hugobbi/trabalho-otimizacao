@@ -1,4 +1,4 @@
 name = "Heuristic"
 uuid = "9f686a04-418b-46e3-a7ce-cbf2c26242ec"
-authors = ["Felipe <felipe.gallois@inf.ufrgs.br>"]
+authors = ["Felipe <felipe.gallois@inf.ufrgs.br>", "Henrique <hugobbi@inf.ufrgs.br>"]
 version = "0.1.0"
