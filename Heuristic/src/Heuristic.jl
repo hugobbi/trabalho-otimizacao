@@ -3,6 +3,7 @@
 using DataStructures
 
 include("input/InputReader.jl")
+include("output/OutputFormatter.jl")
 
 const INT_MAX = typemax(Int64)
 
