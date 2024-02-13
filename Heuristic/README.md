@@ -16,4 +16,4 @@ A saída do programa lista, em cada linha, uma informação diferente. O conteú
 
 - Semente utilizada
 - Tempo de execução
-- Valor ótimo encontrado
+- Melhor valor encontrado
