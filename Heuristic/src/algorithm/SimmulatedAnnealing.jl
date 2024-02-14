@@ -81,7 +81,9 @@ function generateNextSolution(S, num_vertices)
     return S_next
 end
 
-function simulatedAnnealing(input_data, T, Tf, r, I)
+function simulatedAnnealing(input_data, timeout_seconds, T, Tf, r, I)
+    starting_time = time()
+
     S_current = randperm(length(input_data.V))[1:input_data.k]
     F_current = numReachableVertices(input_data.adjacency_matrix,
                                      input_data.V,
@@ -90,7 +92,7 @@ function simulatedAnnealing(input_data, T, Tf, r, I)
                                      input_data.r,
                                      S_current,
                                      input_data.delta)
-    while T > Tf
+    while T > Tf && (time() - starting_time) < timeout_seconds
         for _ in 1:I
             S_next = generateNextSolution(S_current, length(input_data.V))
             F_next = numReachableVertices(input_data.adjacency_matrix,
