@@ -14,45 +14,41 @@ function resToDict(R, S)
 end
 
 function dijkstraWithResources(g, V, start, R, S, delta_t)
-    # Initialization
-    dist = fill(INT_MAX, length(V))
-    visited = fill(false, length(V))
-    dist[start] = 0 
-
-    # Generating Q array as min-heap
-    Q = PriorityQueue{Int64, Int64}()
-    Q[start] = dist[start]
-
-    # Generate resource dictionary
     resDict = resToDict(R, S)
 
-    # Main loop
+    dist = fill(INT_MAX, length(V))
+    Q = copy(V)
+
+    dist[start] = 0
+
     while !isempty(Q)
-        u, du = peek(Q)
-        dequeue!(Q)
-        if !visited[u]
-            visited[u] = true
-            adjacent_u = g[u, :]
-            for v in 1:length(adjacent_u)
-                if adjacent_u[v] > -1
-                    cost_to_v = du + adjacent_u[v]
-                    if dist[v] > cost_to_v
-                        dist[v] = cost_to_v
-                        # Apply resource
-                        if haskey(resDict, u)
-                            if du >= resDict[u]
-                                dist[v] += delta_t
-                            end
-                        end
-                        Q[v] = dist[v]
-                    end
+        pos_u = 0
+        minimum_dist = INT_MAX
+        for (pos, v) in enumerate(Q)
+            if dist[v] < minimum_dist
+                pos_u = pos
+                minimum_dist = dist[v]
+            end
+        end
+
+        u = Q[pos_u]
+        splice!(Q, pos_u)
+
+        for (v, time) in enumerate(g[u, :])
+            if (time >= 0) && (v in Q)
+                alt = dist[u] + time
+                if haskey(resDict, u) && resDict[u] <= dist[u]
+                    alt += delta_t
                 end
-            end 
-        end  
-    end 
+                if alt < dist[v]
+                    dist[v] = alt
+                end
+            end
+        end
+    end
 
     return dist
-end 
+end
 
 function numReachableVertices(g, V, start, t_max, R, S, delta_t)
     distances = dijkstraWithResources(g, V, start, R, S, delta_t)
