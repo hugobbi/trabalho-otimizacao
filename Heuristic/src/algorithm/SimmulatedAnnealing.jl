@@ -50,6 +50,48 @@ function dijkstraWithResources(g, V, start, R, S, delta_t)
     return dist
 end
 
+# Dijkstra algorithm implemented using priority queue (min-heap)
+function dijkstraWithResourcesPQ(g, V, start, R, S, delta_t)
+    # Initialization
+    num_vertices = length(V)
+    dist = fill(INT_MAX, num_vertices)
+    visited = fill(false, num_vertices)
+    dist[start] = 0 
+
+    # Generating Q array as min-heap
+    Q = PriorityQueue{Int64, Int64}()
+    Q[start] = dist[start]
+
+    # Generate resource dictionary
+    resDict = resToDict(R, S)
+
+    # Main loop
+    while !isempty(Q)
+        u, du = peek(Q)
+        dequeue!(Q)
+        if !visited[u]
+            visited[u] = true
+            adjacent_u = g[u, :]
+            for v in 1:length(adjacent_u)
+                if adjacent_u[v] > -1
+                    cost_to_v = du + adjacent_u[v]
+                    # Apply resource
+                    if haskey(resDict, u) && du >= resDict[u]
+                        cost_to_v += delta_t
+                    end
+                    # Update distances vector
+                    if dist[v] > cost_to_v
+                        dist[v] = cost_to_v
+                        Q[v] = dist[v]
+                    end
+                end
+            end 
+        end  
+    end 
+
+    return dist
+end
+
 function numReachableVertices(g, V, start, t_max, R, S, delta_t)
     distances = dijkstraWithResources(g, V, start, R, S, delta_t)
     numVertices = 0
