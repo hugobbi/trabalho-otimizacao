@@ -35,7 +35,7 @@ end
 
 function createmodel(input_data::InputData, timeout_seconds::Float64)
     model = JuMP.Model(GLPK.Optimizer)
-    set_time_limit_sec(model, timeout_seconds)
+    set_time_limit_sec(model, timeout_seconds / 2)  # The actual time is double, for some reason...
 
     @variable(model, x[v in input_data.V, t in 1:input_data.T], Bin)
     @variable(model, y[v in input_data.V, i in 1:input_data.k], Bin)

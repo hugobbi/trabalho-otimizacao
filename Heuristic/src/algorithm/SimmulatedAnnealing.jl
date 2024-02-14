@@ -87,37 +87,37 @@ function simulatedAnnealing(input_data, timeout_seconds, T, Tf, r, I)
     S_current = randperm(length(input_data.V))[1:input_data.k]
     F_current = numReachableVertices(input_data.adjacency_matrix,
                                      input_data.V,
-                                     1,
+                                     input_data.s,
                                      input_data.T,
                                      input_data.r,
                                      S_current,
                                      input_data.delta)
-    while T > Tf && (time() - starting_time) < timeout_seconds
+
+    while T > Tf
         for _ in 1:I
             S_next = generateNextSolution(S_current, length(input_data.V))
             F_next = numReachableVertices(input_data.adjacency_matrix,
                                           input_data.V,
-                                          1,
+                                          input_data.s,
                                           input_data.T,
                                           input_data.r,
                                           S_next,
                                           input_data.delta)
-            F_current = numReachableVertices(input_data.adjacency_matrix,
-                                             input_data.V,
-                                             1,
-                                             input_data.T,
-                                             input_data.r,
-                                             S_current,
-                                             input_data.delta)
+
             delta_f = F_next - F_current
             if delta_f <= 0
                 S_current = S_next
+                F_current = F_next
             else
                 if exp(-delta_f/T) > rand()
                     S_current = S_next
+                    F_current = F_next
                 end 
-            end 
-            
+            end
+
+            if time() - starting_time > timeout_seconds
+                return F_current
+            end
         end
         T *= r
     end
